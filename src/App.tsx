@@ -1,5 +1,4 @@
-
-import { useState , ChangeEvent, FormEvent} from 'react';
+import { useState , ChangeEvent, FormEvent, useCallback} from 'react';
 import './App.css'
 import ProductCard from './Component/ProductCard'
 import { categories, colors, formInputList, productInformation } from './data';
@@ -11,7 +10,7 @@ import { productValidation } from './Validation';
 import ErrorMessage from './Component/ErrorMessage';
 import ColorCircles from './Component/UI/ColorCircles';
 import {v4 as uuidv4} from 'uuid';
-import { Select } from './Component/UI/Select';
+import  Select  from './Component/UI/Select';
 import toast, { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -49,27 +48,21 @@ function App() {
 
   
   /*---HANDLER---*/
-  const closeModal = ()=> setIsOpen(false);
-  const openModal = ()=>  setIsOpen(true);
+  const closeModal = useCallback(()=> setIsOpen(false),[]);
+  const openModal = useCallback(()=>  setIsOpen(true),[]);
 
-  const closeEditModal = ()=> setIsEditOpen(false);
-  const openEditModal = ()=>  setIsEditOpen(true);
+  const closeEditModal = useCallback(()=> setIsEditOpen(false),[]);
+  const openEditModal = useCallback(()=>  setIsEditOpen(true),[]);
 
-  const closeRemoveModal = ()=> setIsRemoveModalOpen(false);
-  const openRemoveModal = ()=>  setIsRemoveModalOpen(true);
+  const closeRemoveModal = useCallback(()=> setIsRemoveModalOpen(false),[]);
+  const openRemoveModal = useCallback(()=>  setIsRemoveModalOpen(true),[]);
   
-  const onChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
+  const onChangeHandler = useCallback((event:ChangeEvent<HTMLInputElement>) =>{
     const {value, name} = event.target;
-    setProduct({
-      ...product,
-      [name]: value
-    });
+    setProduct(prev => ({...prev,[name]: value}));
 
-    setErrors({
-      ...errors,
-      [name] : ''
-    });
-  }
+    setErrors(prev => ({...prev,[name] : ''})); //setErrors({...errors,[name] : ''}); pervious code
+  },[])
 
   const onEditChangeHandler = (event:ChangeEvent<HTMLInputElement>) =>{
     const {value, name} = event.target;

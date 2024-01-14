@@ -3,6 +3,7 @@ import { descriptionSlice, numberWithCommas } from "../functions";
 import Button from "./UI/Button";
 import ColorCircles from "./UI/ColorCircles";
 import Image from "./Image";
+import { memo } from "react";
 
 interface IProps {
     product: IProduct,
@@ -61,4 +62,4 @@ const ProductCard = ({product, setProductEdit, openEditModal,index,setProductEdi
     )
 }
 
-export default ProductCard;
+export default memo(ProductCard);

@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, memo } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import { categories } from '../../data'
@@ -13,7 +13,7 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export const Select= ({selected,setSelected}: IProps)=> {
+const Select= ({selected,setSelected}: IProps)=> {
 
     return (
         <Listbox value={selected} onChange={setSelected}>
@@ -83,3 +83,5 @@ export const Select= ({selected,setSelected}: IProps)=> {
         </Listbox>
     )
 }
+
+export default memo(Select);
